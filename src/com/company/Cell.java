@@ -23,7 +23,7 @@ public class Cell
         StdDraw.show(1000);
     }
 
-    public void background()
+    private void background()
     {
         StdDraw.setScale(0,row);
 
@@ -36,7 +36,7 @@ public class Cell
         }
     }
 
-    public void updateCopy()
+    private void updateCopy()
     {
         for(int r = 0; r<row; r++){
             for(int c = 0; c<col; c++){
@@ -45,7 +45,7 @@ public class Cell
         }
     }
 
-    public void initializeCells()
+    private void initializeCells()
     {
         //all cells are false
         //put in some alive cell
@@ -57,7 +57,7 @@ public class Cell
         updateCopy();
     }
 
-    public void fillCells()
+    private void fillCells()
     {
         for(int r=row-1;r>=0;r--){
             for(int c=0;c<col;c++){
@@ -68,7 +68,7 @@ public class Cell
         }
     }
 
-    public int findAliveCell()
+    private int findAliveCell()
     {
         int count = 0;
         for(int r=0;r<row;r++){
@@ -81,7 +81,7 @@ public class Cell
         return count;
     }
 
-    public int numOfNeigh(int r, int c)
+    private int numOfNeigh(int r, int c)
     {
         int num =0;
         //on the top
@@ -145,7 +145,7 @@ public class Cell
 
     }
 
-    public void test(int r, int c)
+    private void test(int r, int c)
     {
         if(cells2[r][c]){
             if(r==0)cells[r][c]=false;
@@ -162,7 +162,7 @@ public class Cell
         }
     }
 
-    public void addAlive(int r, int c)
+    private void addAlive(int r, int c)
     {
         cells[r+1][c+1]=true;
         StdDraw.clear();
@@ -179,8 +179,9 @@ public class Cell
             updateCopy();
             if(StdDraw.isMousePressed()){
                 while(!StdDraw.isKeyPressed(40)){
-                    if(StdDraw.isMousePressed()){
-                        addAlive((int)StdDraw.mouseY(),(int)StdDraw.mouseX());
+                    int y = (int)StdDraw.mouseY(), x = (int)StdDraw.mouseX();
+                    if(StdDraw.isMousePressed()&&y>=0&&x>=0&&y<row-1&&x<row-1){ //need to check for going out of bounds on to the screen
+                        addAlive(y,x);
                     }
                 }
             }
@@ -196,7 +197,7 @@ public class Cell
         }
     }
 
-    public void print(boolean[][] mat)
+    private void print(boolean[][] mat)
     {
         for (int i = 0; i < mat.length; i++) {
             for (int j = 0; j < mat[0].length; j++) {
